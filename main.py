@@ -13,18 +13,27 @@ def read_root():
 def add(a: str, b: str):
     """
     Add two numbers together.
-    
+
     Parameters:
     - a: First number
     - b: Second number
-    
+
     Returns:
-    - JSON object with the result
+    JSON object containing the operation, inputs, and result.
     """
+
     try:
-        a = int(a)
-        b = int(b)
+        a = float(a)
+        b = float(b)
     except ValueError:
-        raise HTTPexception(status_code=status.HTTP_422_UNPROCESSABLE_ENTITY, detail="Both 'a' and 'b' must be valid numbers")
-        
-    return {"result": a + b}
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+            detail="All arguments must be valid numbers."
+        )
+
+    return {
+        "operation": "add",
+        "a": a,
+        "b": b,
+        "result": a + b
+    }
